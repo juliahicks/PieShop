@@ -9,6 +9,7 @@ namespace PieShop.Components.Pages
 
         protected async override Task OnInitializedAsync()
         {
+            await Task.Delay(2000); // Simulate async data loading
             Employees = MockDataService.Employees;
         }
     }
