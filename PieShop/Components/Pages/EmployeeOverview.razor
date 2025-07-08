@@ -3,6 +3,8 @@
 
 @rendermode InteractiveServer
 
+<PageTitle>@Title</PageTitle> 
+
 <h1>Employee Overview</h1>
 
 @if (Employees == null)
@@ -15,10 +17,17 @@ else
         <div class="row">
             @foreach (var employee in Employees)
             {
-            <div class="col-6 cold-lg-4 col-xl-3 col-xxl-3">
-                <EmployeeCard Employee="employee" 
-                    EmployeeQuickViewClicked="ShowQuickViewPopup" />
-            </div>
+                <ErrorBoundary>
+                    <ChildContent>
+                        <div class="col-6 cold-lg-4 col-xl-3 col-xxl-3">
+                            <EmployeeCard Employee="employee"
+                                          EmployeeQuickViewClicked="ShowQuickViewPopup" />
+                        </div>
+                    </ChildContent>
+                    <ErrorContent>
+                        <p class="errorUI">Invalid Employee!</p>
+                    </ErrorContent>
+                </ErrorBoundary>
             }
         </div>
 }
