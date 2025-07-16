@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PieShop.Services;
 using PieShopHRM.Shared.Domain;
+using PieShop.Contracts.Services;
 
 namespace PieShop.Components.Pages
 {
@@ -11,9 +12,13 @@ namespace PieShop.Components.Pages
 
         public Employee Employee { get; set; } = new Employee();
 
-        protected override void OnInitialized()
+        [Inject]
+        public IEmployeeDataService? EmployeeDataService { get; set; }
+
+        protected async override Task OnInitializedAsync()
         {
-            Employee = MockDataService.Employees.Single(e => e.EmployeeId == EmployeeId);
+            //Employee = MockDataService.Employees.Single(e => e.EmployeeId == EmployeeId);
+            Employee = await EmployeeDataService.GetEmployeeDetails(EmployeeId);
         }
 
         private void ChangeHolidayState()

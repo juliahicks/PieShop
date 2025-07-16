@@ -1,5 +1,7 @@
-﻿using PieShop.Services;
+﻿using PieShop.Contracts.Services;
+using PieShop.Services;
 using PieShopHRM.Shared.Domain;
+using Microsoft.AspNetCore.Components;
 
 namespace PieShop.Components.Pages
 {
@@ -10,10 +12,14 @@ namespace PieShop.Components.Pages
 
         private string Title => "Employee Overview";
 
+        [Inject]
+        public IEmployeeDataService EmployeeDataService { get; set; }
+
         protected async override Task OnInitializedAsync()
         {
             //await Task.Delay(2000); // Simulate async data loading
-            Employees = MockDataService.Employees;
+            //Employees = MockDataService.Employees;
+            Employees = (await EmployeeDataService.GetAllEmployees()).ToList();
         }
 
         public void ShowQuickViewPopup(Employee selectedEmployee)

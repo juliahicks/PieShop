@@ -1,6 +1,11 @@
 using PieShop.Components;
 using PieShop.Data;
+using PieShop.Repositories;
+using PieShop.Services;
+using PieShop.Contracts.Repositories;
+using PieShop.Contracts.Services;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +18,10 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
        options.UseSqlServer(
            builder.Configuration["ConnectionStrings:DefaultConnection"]
            ));
+
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
+builder.Services.AddScoped<IEmployeeDataService, EmployeeDataService>();
 
 var app = builder.Build();
 
