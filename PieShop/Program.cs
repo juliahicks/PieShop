@@ -5,6 +5,7 @@ using PieShop.Services;
 using PieShop.Contracts.Repositories;
 using PieShop.Contracts.Services;
 using Microsoft.EntityFrameworkCore;
+using PieShop.State;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +21,11 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
            ));
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<ITimeRegistrationRepository, TimeRegistrationRepository>();
 
 builder.Services.AddScoped<IEmployeeDataService, EmployeeDataService>();
+builder.Services.AddScoped<ITimeRegistrationDataService, TimeRegistrationDataService>();
+builder.Services.AddScoped<ApplicationState>();
 
 var app = builder.Build();
 
